@@ -55,7 +55,10 @@ spec:
         - containerPort: 8443
           name: public
           protocol: TCP
-        resources: {}
+        {{- with .Values.oauthProxy.resources }}
+        resources:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         volumeMounts:
         - mountPath: /etc/tls/private
           name: proxy-tls
